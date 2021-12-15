@@ -5,12 +5,17 @@ import (
 	sdl "github.com/veandco/go-sdl2/sdl"
 	"os"
 )
+//Game
+//Change this to select a new game
+const GAME = "pong.rom"
 
 // Default Chip8 resolution
 const CHIP_8_WIDTH int32 = 64
 const CHIP_8_HEIGHT int32 = 32
 
-func main() {
+
+
+func main()  {
 	var modifier int32 = 10
 
 	// Create window, chip8 resolution with given modifier
@@ -28,11 +33,12 @@ func main() {
 	defer canvas.Destroy()
 	// Clear the screen
 	canvas.SetDrawColor(255, 0, 0, 255)
+	canvas.Clear()
 
-	chip8 := chip8.Init()
-	chip8.LoadGame("games/pong.rom")
+	chip8.Initialize()
+	chip8.LoadGame("games/"+GAME)
 
-	for {
+	for  {
 		// Emulate one cycle
 		chip8.EmulateCycle()
 		if chip8.GetDrawFlag() {
@@ -137,7 +143,7 @@ func main() {
 				}
 			}
 		}
-		//wsdl.Delay(1)
+		sdl.Delay(1)
 	}
 
 }
